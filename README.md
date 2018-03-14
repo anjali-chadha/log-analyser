@@ -79,7 +79,7 @@ The input log file is either empty or all entries are in incorrect format.
 
 ```
 
-**Case 5  ** File doesn&#39;t exist
+**Case 5** File doesn&#39;t exist
 
 ```
 Output:
@@ -102,14 +102,14 @@ Given input file doesn't exist. Please check the path.
 Using a TreeSet for storing the timestamps in sorted order.
 
 ```
-Time Complexity of  creatinguser-timestamps map - **O(u \* N log N).** 
+Time Complexity of  creatinguser-timestamps map - O(u * N log N).
 where N - average number of timestamps per userand u - number of unique users 
 ```
 
 3. We have defined a custom Comparator for UserSessionEntry class to do comparisons on the basis of number of visits and the last visited timestamp.
 4. Using this comparator along with a Max-Priority Queue, all the UserSessionEntry objects obtained in the Step2 are added to the PQ.
 ```
-Time Complexity of  creating the Max-Priority Queue -  **O(m)**
+Time Complexity of  creating the Max-Priority Queue -  O(m)
 where m - total number of sessions,and, m <= N
 ```
 
@@ -120,7 +120,7 @@ where m - total number of sessions,and, m <= N
 1. Currently, the codebase just handles input files with timestamp in milliseconds. With small changes in the code, we can take input from user indicating the units of timestamps (milliseconds, seconds) present in the log file.
 2. In the current implementation, we are not making any assumptions about the order of the log entries in the input file (i.e timestamps may appear in log file in unsorted fashion). Due to this, we have to keep track of all the sessions per user throughout the file processing. This approach is inefficient for streaming log scenarios and may lead to out of memory error.
 
-We can handle this case by following a **heuristic**** approach **. Assumption is, given** a time window**_,_ say, 30 minutes or 1 hour, in which if a session is in continuation, that time stamp will appear. In other words, if timestamp which can continue an already open session doesn&#39;t appear in the given time window, we will close that session and process it.
+We can handle this case by following a **heuristic** approach. Assumption is, given **a time window**, say, 30 minutes or 1 hour, in which if a session is in continuation, that time stamp will appear. In other words, if timestamp which can continue an already open session doesn&#39;t appear in the given time window, we will close that session and process it.
 
 The advantage of the above approach is that per user we need to keep track of just the currently opened sessions and last known session with maximum visits. This also saves us lot of memory and should be preferred approach is streaming log cases.
 3. We can modify the code to take the session timeout limit as an input from the user instead of hardcoding the time as 1 hour.
